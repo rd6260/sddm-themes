@@ -1,0 +1,11 @@
+[SddmGreeterTheme]
+Name=Pinkslip
+Description=Street-sticker login with a licence-plate password field
+Author=senku
+Version=1.0
+Type=sddm-theme
+MainScript=Main.qml
+ConfigFile=theme.conf
+Theme-Id=pinkslip
+Theme-API=2.0
+QtVersion=6
