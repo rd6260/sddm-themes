@@ -21,6 +21,19 @@ A three-panel layout: dot-matrix clock · password login · system actions. Ligh
 - Click session button to cycle desktop sessions
 - Shake animation on failed login
 
+### ironclad
+
+> Hot-rod editorial login — heavy Exo 2 type over a studio-grey backdrop.
+
+![ironclad theme screenshot](screenshots/ironclad.png)
+
+Left panel holds a headline-sized clock, username, underline password field and login button; the car stays clear on the right. Clickable session name at the bottom-left, system actions top-right, brake-caliper red accents.
+
+**Features**
+- Exo 2 (SIL OFL) Medium / Bold / ExtraBold, bundled in `themes/ironclad/font/`
+- Click username to cycle users, click the session name (bottom-left) to cycle desktop sessions
+- Shake animation on failed login
+
 ---
 
 ## Installation
@@ -28,12 +41,14 @@ A three-panel layout: dot-matrix clock · password login · system actions. Ligh
 ```bash
 git clone https://github.com/senku/rd-sddm-themes
 cd rd-sddm-themes
-sudo ./install.sh
+./install.sh
 ```
 
-The script will:
-1. Copy the theme to `/usr/share/sddm/themes/`
-2. Write `/etc/sddm.conf.d/theme.conf` with `Current=nothing`
+Run it as your normal user. The script lists the available themes and asks which one to install, then asks for your `sudo` password only when it needs to write to system folders. To skip the menu, pass the theme name: `./install.sh ironclad`.
+
+It will:
+1. Copy the chosen theme to `/usr/share/sddm/themes/`
+2. Write `/etc/sddm.conf.d/theme.conf` with `Current=<theme>`
 
 Then restart SDDM:
 
@@ -41,8 +56,6 @@ Then restart SDDM:
 sudo systemctl restart sddm
 ```
 
-> [!NOTE]
-> The installer defaults to the **nothing** theme. To switch themes, edit the `THEME_NAME` variable at the top of `install.sh` before running it (once more themes are available).
 
 ---
 
