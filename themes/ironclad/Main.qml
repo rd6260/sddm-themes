@@ -34,6 +34,7 @@ Rectangle {
         return (h || "LOCALHOST").toUpperCase();
     }
 
+    FontLoader { source: "font/Exo2-Regular.ttf" }
     FontLoader { id: exoMedium; source: "font/Exo2-Medium.ttf" }
     FontLoader { id: exoBold; source: "font/Exo2-Bold.ttf" }
     FontLoader { id: exoHeavy; source: "font/Exo2-ExtraBold.ttf" }
@@ -42,6 +43,48 @@ Rectangle {
     readonly property real imgRatio: 1672 / 941
     readonly property real paintedW: Math.max(width, height * imgRatio)
     readonly property real panelEdge: (width - paintedW) / 2 + paintedW * 0.424
+
+    // Greeting under the car, chosen at random from a pool for the time of day
+    readonly property var greetings: [
+        [ // Late night 00:00 - 06:00
+            "The world's asleep. Make yourself cozy.",
+            "It's just you and the quiet tonight.",
+            "Take a breath, there's nowhere to rush.",
+            "Hope you're finding a little peace tonight."
+        ],
+        [ // Morning 06:00 - 12:00
+            "Good morning! It's lovely to have you here.",
+            "A new day, a fresh little beginning.",
+            "Take it slow, there's time for everything.",
+            "Hope something lovely finds you today."
+        ],
+        [ // Afternoon 12:00 - 18:00
+            "Welcome back! How's your day going?",
+            "Take a little break, you've earned it.",
+            "There's still plenty of day left to enjoy.",
+            "Don't forget to be kind to yourself."
+        ],
+        [ // Evening 18:00 - 24:00
+            "The day is winding down. Get comfortable.",
+            "You're home now, leave the rush behind.",
+            "Let the little things wait until tomorrow.",
+            "Wishing you a quiet and peaceful night."
+        ]
+    ]
+    property int greetPeriod: -1
+    property string greeting: ""
+    function updateGreeting() {
+        var p = Math.floor(new Date().getHours() / 6);   // 0..3
+        if (p === greetPeriod) return;                    // same period: keep the current text
+        greetPeriod = p;
+        var pool = greetings[p];
+        // Every monitor runs its own copy of this theme, so a plain Math.random()
+        // would differ per screen. Seed from a shared 10-minute time bucket instead:
+        // all screens loading together agree, and it still varies between logins.
+        var seed = Math.floor(Date.now() / 600000);
+        var r = (seed * 1103515245 + 12345) % 2147483648;
+        greeting = pool[Math.floor(r / 65536) % pool.length];
+    }
 
     Image {
         anchors.fill: parent
@@ -83,6 +126,7 @@ Rectangle {
     Timer { id: errTimer; interval: 3000; onTriggered: root.errorMessage = "" }
 
     Component.onCompleted: {
+        updateGreeting();
         fadeAnim.start();
         if (typeof keyboard !== "undefined") keyboard.numLock = true;
     }
@@ -381,11 +425,28 @@ Rectangle {
         }
     }
 
+    // ── Greeting, centred under the car ──────────────────────────────────────
+    Text {
+        readonly property real k: root.paintedW / 1672
+        x: (root.width - root.paintedW) / 2 + 1195 * k - width / 2
+        y: (root.height - root.paintedW / root.imgRatio) / 2 + 785 * k
+        width: Math.min(implicitWidth, root.width - root.panelEdge - 40 * root.s)
+        text: root.greeting
+        horizontalAlignment: Text.AlignHCenter
+        elide: Text.ElideRight
+        font.family: root.exo; font.weight: Font.Normal
+        font.pixelSize: 19 * root.s
+        font.letterSpacing: 0.4 * root.s
+        color: "#5d676d"
+        opacity: root.ui * 0.75
+    }
+
     Timer {
         interval: 1000
         running: true
         repeat: true
         onTriggered: {
+            root.updateGreeting();
             var d = new Date();
             hourText.text = Qt.formatTime(d, "hh");
             minText.text = Qt.formatTime(d, "mm");

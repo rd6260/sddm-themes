@@ -36,6 +36,21 @@ Left panel holds a headline-sized clock, username, underline password field and 
 
 ---
 
+### pinkslip
+
+> Street-sticker login — poster-weight type, hot-pink accents, and a licence-plate password field.
+
+![pinkslip theme screenshot](screenshots/pinkslip.png)
+
+A tall `HH:MM` clock in Anton with a blinking pink colon, a tilted black date tag, and the password field styled as a licence plate with a `GO` box. Machine name as a sticker top-left, outlined action pills top-right, and the session as a tag bottom-left. The car and its owner stay clear on the right.
+
+**Features**
+- Anton + Barlow Condensed (SIL OFL), bundled in `themes/pinkslip/font/`
+- Click the pink username pill to cycle users, click the session tag to cycle desktop sessions
+- Shake animation on failed login
+
+---
+
 ## Installation
 
 ```bash
