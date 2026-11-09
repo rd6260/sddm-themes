@@ -4,13 +4,6 @@ A collection of my minimal, opinionated SDDM login themes.
 
 ## Themes
 
-### nothing
-
-> Dot-matrix widget login — inspired by Nothing OS.
-
-A three-panel layout: dot-matrix clock · password login · system actions. Light grey background, dark widget cards, red accents.
-
-![nothing theme screenshot](screenshots/nothing.png)
 
 ### ironclad
 
@@ -24,6 +17,14 @@ A three-panel layout: dot-matrix clock · password login · system actions. Ligh
 > Street-sticker login — poster-weight type, hot-pink accents, and a licence-plate password field.
 
 ![pinkslip theme screenshot](screenshots/pinkslip.png)
+
+### nothing
+
+> Dot-matrix widget login — inspired by Nothing OS.
+
+A three-panel layout: dot-matrix clock · password login · system actions. Light grey background, dark widget cards, red accents.
+
+![nothing theme screenshot](screenshots/nothing.png)
 
 
 ## Installation
