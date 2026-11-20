@@ -28,6 +28,9 @@ error()   { echo -e "${RED}[ERROR]${RESET} $*" >&2; }
 # ── Preview helpers (used by the menu) ───────────────────────────────────────
 theme_desc() { grep -m1 '^Description=' "${THEMES_DIR}/$1/metadata.desktop" | cut -d= -f2-; }
 
+# Screenshots are named in lowercase (e.g. CBRPNK -> screenshots/cbrpnk.png)
+screenshot() { echo "${ROOT_DIR}/screenshots/$(tr '[:upper:]' '[:lower:]' <<<"$1").png"; }
+
 # show_image <file> <cols> <rows>: render with chafa or kitty's icat if present
 show_image() {
     local img="$1" cols="$2" rows="$3"
@@ -49,7 +52,7 @@ if [[ "${1:-}" == "--preview" ]]; then
     echo
     cols="${FZF_PREVIEW_COLUMNS:-60}"
     rows=$(( ${FZF_PREVIEW_LINES:-24} - 4 ))
-    show_image "${ROOT_DIR}/screenshots/${t}.png" "${cols}" "${rows}" \
+    show_image "$(screenshot "${t}")" "${cols}" "${rows}" \
         || echo "(no screenshot or image viewer — install 'chafa' for previews)"
     exit 0
 fi
@@ -104,7 +107,7 @@ else
         echo -e "${BOLD}Available themes:${RESET}"
         for i in "${!THEMES[@]}"; do
             printf "\n  %d) %s — %s\n\n" "$((i + 1))" "${THEMES[$i]}" "$(theme_desc "${THEMES[$i]}")"
-            show_image "${ROOT_DIR}/screenshots/${THEMES[$i]}.png" 48 12 || true
+            show_image "$(screenshot "${THEMES[$i]}")" 48 12 || true
         done
         echo
         while true; do

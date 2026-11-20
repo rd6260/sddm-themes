@@ -1,0 +1,11 @@
+[SddmGreeterTheme]
+Name=CBRPNK
+Description=Bento-card cyberpunk login with a robot poster and flat colour panels
+Author=senku
+Version=1.0
+Type=sddm-theme
+MainScript=Main.qml
+ConfigFile=theme.conf
+Theme-Id=cbrpnk
+Theme-API=2.0
+QtVersion=6
