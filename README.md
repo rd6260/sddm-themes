@@ -41,7 +41,7 @@ Install it with `./install.sh CBRPNK`.
 ## Installation
 
 ```bash
-git clone https://github.com/senku/rd-sddm-themes
+git clone https://github.com/rd6260/sddm-themes.git
 cd rd-sddm-themes
 ./install.sh
 ```
